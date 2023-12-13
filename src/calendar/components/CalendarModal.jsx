@@ -10,6 +10,7 @@ import es from 'date-fns/locale/es';
 import Swal from 'sweetalert2';
 import { useUiStore } from '../../hooks/useUiStore';
 import { useCalendarStore } from '../../hooks';
+import { getEnvVariables } from '../../helpers';
 
 registerLocale('es', es);
 
@@ -24,7 +25,9 @@ const customStyles = {
     },
 };
 
-Modal.setAppElement('#root');
+if (getEnvVariables().VITE_MODE !== 'test'){
+    Modal.setAppElement('#root');
+}
 
 export const CalendarModal = () => {
 
@@ -71,7 +74,7 @@ export const CalendarModal = () => {
         console.log('cerrar modal');
         closeDateModal();
     }
-    const onSubmit = async(e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         setFormSubmitted(true);
 
